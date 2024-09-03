@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works of the Litoral - Formulario de Contacto</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+        header {
+            background-color: #1e2124;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .container {
+            max-width: 900px;
+            margin: 100px auto 20px auto; /* Adds margin for the fixed header */
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            margin: 0;
+        }
+        h2 {
+            color: #0066cc;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #0066cc;
+            box-shadow: 0 0 8px rgba(0, 102, 204, 0.5);
+            outline: none;
+        }
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .form-group button {
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .form-group button:hover {
+            background-color: #004d99;
+        }
+        .form-group button:active {
+            transform: scale(0.98);
+        }
+        footer {
+            text-align: center;
+            padding: 2px;
+            background-color: #0066cc;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 10px;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-content a {
+            color: #fff;
+            text-decoration: none;
+            margin: 1px 0;
+            font-weight: bold;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .footer-content a:hover {
+            color: #cce0ff;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-section h2 {
+            color: #0066cc;
+        }
+        .form-group .icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0066cc;
+        }
+        .form-group select {
+            font-size: 16px;
+            padding: 12px;
+        }
+        .progress-bar {
+            height: 20px;
+            border-radius: 10px;
+            background-color: #ddd;
+            position: relative;
+            margin-top: 10px;
+        }
+        .progress-bar span {
+            display: block;
+            height: 100%;
+            border-radius: 10px;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Works of the Litoral</h1>
+    </header>
+    
+    <div class="container">
+        <p style="text-align: center; font-size: 1.2em; color: #555;">¡Gracias por visitar nuestra página! Nos encantaría saber más sobre ti para mejorar nuestro servicio. Por favor, completa el siguiente formulario.</p>
+        
+        <form action="#" method="post">
+            <div class="form-section">
+                <h2>Información Personal</h2>
+                <div class="form-group">
+                    <label for="name">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Número de Teléfono:</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="text" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Fecha de Nacimiento:</label>
+                    <input type="text" id="dob" name="dob">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Experiencia y Opiniones</h2>
+                <div class="form-group">
+                    <label for="feedback">¿Cómo te pareció nuestra charla?</label>
+                    <select id="feedback" name="feedback" onchange="updateProgressBar()" required>
+                        <option value="excelente">Excelente</option>
+                        <option value="muy_buena">Muy buena</option>
+                        <option value="buena">Buena</option>
+                        <option value="regular">Regular</option>
+                        <option value="mala">Mala</option>
+                    </select>
+                    <div class="progress-bar">
+                        <span id="progress"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comments">¿Tienes algún comentario adicional o sugerencia?</label>
+                    <textarea id="comments" name="comments"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Información Adicional</h2>
+                <div class="form-group">
+                    <label for="school">Nombre de la Escuela (si aplica):</label>
+                    <input type="text" id="school" name="school">
+                </div>
+                <div class="form-group">
+                    <label for="locality">Localidad:</label>
+                    <select id="locality" name="locality" required>
+                        <!-- Buenos Aires -->
+                        <option value="buenos_aires_buenos_aires">Buenos Aires - Buenos Aires</option>
+                        <option value="buenos_aires_laplata">Buenos Aires - La Plata</option>
+                        <option value="buenos_aires_mardelplata">Buenos Aires - Mar del Plata</option>
+                        <option value="buenos_aires_tandil">Buenos Aires - Tandil</option>
+                        <!-- Catamarca -->
+                        <option value="catamarca_sanfernando">Catamarca - San Fernando del Valle de Catamarca</option>
+                        <!-- Chaco -->
+                        <option value="chaco_resistencia">Chaco - Resistencia</option>
+                        <!-- Chubut -->
+                        <option value="chubut_rawson">Chubut - Rawson</option>
+                        <option value="chubut_trelew">Chubut - Trelew</option>
+                        <!-- Córdoba -->
+                        <option value="cordoba_cordoba">Córdoba - Córdoba</option>
+                        <option value="cordoba_villa_allende">Córdoba - Villa Allende</option>
+                        <option value="cordoba_rio_ceballos">Córdoba - Río Ceballos</option>
+                        <!-- Corrientes -->
+                        <option value="corrientes_corrientes">Corrientes - Corrientes</option>
+                        <!-- Entre Ríos -->
+                        <option value="entre_rios_parana">Entre Ríos - Paraná</option>
+                        <option value="entre_rios_gualeguaychu">Entre Ríos - Gualeguaychú</option>
+                        <!-- Formosa -->
+                        <option value="formosa_formosa">Formosa - Formosa</option>
+                        <!-- Jujuy -->
+                        <option value="jujuy_san_salvador">Jujuy - San Salvador de Jujuy</option>
+                        <!-- La Pampa -->
+                        <option value="la_pampa_santa_rosa">La Pampa - Santa Rosa</option>
+                        <!-- La Rioja -->
+                        <option value="la_rioja_la_rioja">La Rioja - La Rioja</option>
+                        <!-- Mendoza -->
+                        <option value="mendoza_mendoza">Mendoza - Mendoza</option>
+                        <option value="mendoza_san_rafael">Mendoza - San Rafael</option>
+                        <!-- Misiones -->
+                        <option value="misiones_posadas">Misiones - Posadas</option>
+                        <option value="misiones_eldorado">Misiones - Eldorado</option>
+                        <option value="misiones_montecarlo">Misiones - Montecarlo</option>
+                        <!-- Neuquén -->
+                        <option value="neuquen_neuquen">Neuquén - Neuquén</option>
+                        <option value="neuquen_san_martin">Neuquén - San Martín de los Andes</option>
+                        <!-- Río Negro -->
+                        <option value="rio_negro_viedma">Río Negro - Viedma</option>
+                        <!-- Salta -->
+                        <option value="salta_salta">Salta - Salta</option>
+                        <option value="salta_carmen_de_arep">Salta - Carmen de Areco</option>
+                        <!-- San Juan -->
+                        <option value="san_juan_san_juan">San Juan - San Juan</option>
+                        <!-- San Luis -->
+                        <option value="san_luis_san_luis">San Luis - San Luis</option>
+                        <option value="san_luis_merlo">San Luis - Merlo</option>
+                        <!-- Santa Cruz -->
+                        <option value="santa_cruz_rio_gallegos">Santa Cruz - Río Gallegos</option>
+                        <!-- Santa Fe -->
+                        <option value="santa_fe_rosario">Santa Fe - Rosario</option>
+                        <option value="santa_fe_santa_fe">Santa Fe - Santa Fe</option>
+                        <!-- Santiago del Estero -->
+                        <option value="santiago_del_estero_santiago_del_estero">Santiago del Estero - Santiago del Estero</option>
+                        <!-- Tierra del Fuego -->
+                        <option value="tierra_del_fuego_ushuaia">Tierra del Fuego - Ushuaia</option>
+                        <!-- Tucumán -->
+                        <option value="tucuman_tucuman">Tucumán - Tucumán</option>
+                        <option value="tucuman_concepcion">Tucumán - Concepción</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="occupation">Ocupación Actual:</label>
+                    <input type="text" id="occupation" name="occupation">
+                </div>
+                <div class="form-group">
+                    <label for="interests">Áreas de Interés:</label>
+                    <input type="text" id="interests" name="interests">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Works of the Litoral. Todos los derechos reservados.</p>
+            <p class="contact-info">
+                <a href="mailto:info@worksofthelitoral.com">info@worksofthelitoral.com</a><br>
+                <a href="tel:+543751666089">+54 3751 666089</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function updateProgressBar() {
+            const feedback = document.getElementById('feedback');
+            const progress = document.getElementById('progress');
+            let color;
+            let percentage;
+            
+            switch(feedback.value) {
+                case 'excelente':
+                    color = 'green';
+                    percentage = '100%';
+                    break;
+                case 'muy_buena':
+                    color = 'lightgreen';
+                    percentage = '75%';
+                    break;
+                case 'buena':
+                    color = 'yellowgreen';
+                    percentage = '50%';
+                    break;
+                case 'regular':
+                    color = 'orange';
+                    percentage = '25%';
+                    break;
+                case 'mala':
+                    color = 'red';
+                    percentage = '0%';
+                    break;
+                default:
+                    color = '#ddd';
+                    percentage = '0%';
+                    break;
+            }
+            
+            progress.style.width = percentage;
+            progress.style.backgroundColor = color;
+        }
+    </script>
+</body>
+</html>
