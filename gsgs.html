@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Open+Sans:wght@300;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos básicos en modo oscuro */
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #252121; /* Color de fondo oscuro */
+            margin: 0;
+            color: #a52c2c;
+            overflow: hidden;
+        }
+        .title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            color: #2b879e;
+            background-color: #1b1818ee;
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-bottom: 2px solid #333;
+            font-size: 1.2em; /* Tamaño moderado para el título */
+            z-index: 2;
+        }
+        .quiz-container {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            width: 500px;
+            margin-top: 70px; /* Espacio para el título */
+            box-sizing: border-box;
+            text-align: center;
+            border: 1px solid #f3eeee;
+        }
+        h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 500;
+            color: #4bff1e;
+        }
+        .option {
+            margin: 10px 0;
+            padding: 15px;
+            width: 100%;
+            border: 4px solid #0096c4;
+            border-radius: 8px;
+            background-color: #1e90ff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .option:hover {
+            background-color: #188bcd;
+            transform: scale(1.02);
+        }
+        .option.correct {
+            background-color: #28a745;
+            border: 1px solid #04e431;
+        }
+        .option.incorrect {
+            background-color: #dc3545;
+            border: 1px solid #e40404;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+        .navigation {
+            margin-top: 20px;
+        }
+        #nextButton {
+            background-color: #28a745;
+            border: 2px solid #17eb17;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #nextButton:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+        #score {
+            font-size: 1em;
+            color: #1e90ff;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        footer a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .emoji {
+            font-size: 2em; /* Tamaño moderado para emojis */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.2em; /* Tamaño más pequeño en móviles */
+            }
+            .quiz-container {
+                width: 90%;
+                padding: 15px;
+            }
+            .option {
+                font-size: 14px;
+                padding: 12px;
+            }
+            #nextButton {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            .result {
+                font-size: 0.9em;
+            }
+            footer {
+                font-size: 0.7em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="title">
+    <h1>Cuestionario</h1>
+</div>
+
+<div class="quiz-container">
+    <h2 id="question">Pregunta</h2>
+    <button class="option" onclick="checkAnswer(0)">Opción A</button>
+    <button class="option" onclick="checkAnswer(1)">Opción B</button>
+    <button class="option" onclick="checkAnswer(2)">Opción C</button>
+    <button class="option" onclick="checkAnswer(3)">Opción D</button>
+    <div id="result" class="result"></div>
+    <div id="score" class="result">Puntaje: 0</div>
+    <div class="navigation">
+        <button id="nextButton" onclick="nextQuestion()">Siguiente</button>
+    </div>
+    <footer>
+        <p>Trivia creado por <a href="#">Works of the Litoral</a></p>
+    </footer>
+</div>
+
+<script>
+    // Lista de preguntas
+    const questions = [
+        {
+            question: "¿Cuáles son nuestras áreas de especialización?",
+            options: [
+                "Infraestructura vial, Proyectos hidráulicos, Obras urbanas, Construcción de edificios y viviendas, Proyectos industriales",
+                "Proyectos hidráulicos, Obras urbanas, Construcción de edificios y viviendas",
+                "Infraestructura vial, Obras urbanas, Proyectos industriales",
+                "Construcción de edificios y viviendas, Proyectos industriales"
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Cuáles son nuestros proyectos hidráulicos?",
+            options: [
+                "Represas, diques y sistemas de control de inundaciones para gestión de recursos hídricos",
+                "Represas y diques",
+                "Sistemas de control de inundaciones",
+                "Represas, diques, y proyectos urbanos"
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Qué obra de la región del Litoral es explotada por su caudal?",
+            options: [
+                "La obra de 'Arrayanes' Río Limay",
+                "La obra de 'Río Parana'",
+                "La obra de 'Río Uruguay'",
+                "La Obra de 'Rio de'"
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Qué materiales se utilizaron para la construcción de las viviendas en el Cerro de los siete colores?",
+            options: [
+                "Ladrillo, concreto y acero.",
+                "Vidrio, aluminio y hormigón.",
+                "Adobe, piedra, madera nativa y paja.", // Respuesta correcta
+                "Plástico, cemento y hierro."
+            ],
+            answer: 2
+        },
+        {
+            question: "¿Dónde se encuentra el supermercado 'DrSpliter' construido por 'Obras del Litoral'?",
+            options: [
+                "En Villa Lugano, Buenos Aires.",
+                "En Córdoba Capital.",
+                "En Rosario, Santa Fe.",
+                "En Villa Devoto, Buenos Aires." // Respuesta correcta
+            ],
+            answer: 3
+        },
+        {
+            question: "¿Cuál es un desafío significativo en las obras urbanas?",
+            options: [
+                "Congestión vehicular.", // Respuesta correcta
+                "Abundancia de espacio.",
+                "Menores regulaciones.",
+                "Bajo costo del terreno."
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Qué tipo de obras se realizan en áreas de baja densidad poblacional?",
+            options: [
+                "Obras rurales.", // Respuesta correcta
+                "Obras urbanas.",
+                "Obras suburbanas.",
+                "Obras semirurales."
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Qué documentación se requiere comúnmente para las obras semirurales?",
+            options: [
+                "Permisos de construcción y normativas específicas para sostenibilidad.", // Respuesta correcta
+                "Permisos de zonificación y permisos ambientales.",
+                "Documentación para infraestructura urbana.",
+                "Permisos de impacto social y construcción."
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Cuál es un factor importante en la realización de una obra en áreas rurales?",
+            options: [
+                "Dificultades logísticas, como el transporte de materiales.", // Respuesta correcta
+                "Acceso fácil a mano de obra calificada.",
+                "Regulaciones estrictas de zonificación.",
+                "Alta densidad poblacional."
+            ],
+            answer: 0
+        },
+        {
+            question: "¿Qué factor puede aumentar los costos iniciales en las obras semirurales?",
+            options: [
+                "Influencias de sostenibilidad.", // Respuesta correcta
+                "Bajo costo del terreno.",
+                "Menor demanda de espacio.",
+                "Regulaciones menos estrictas."
+            ],
+            answer: 0
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function showQuestion(index) {
+        const question = questions[index];
+        document.getElementById('question').textContent = question.question;
+        const options = document.querySelectorAll('.option');
+        options.forEach((option, i) => {
+            option.textContent = question.options[i];
+            option.classList.remove('correct', 'incorrect');
+        });
+        document.getElementById('result').textContent = '';
+    }
+
+    function checkAnswer(selectedIndex) {
+        const question = questions[currentQuestionIndex];
+        const options = document.querySelectorAll('.option');
+        const selectedOption = options[selectedIndex];
+        
+        if (selectedIndex === question.answer) {
+            selectedOption.classList.add('correct');
+            document.getElementById('result').textContent = '¡Correcto!';
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            document.getElementById('result').textContent = 'Incorrecto.';
+            options[question.answer].classList.add('correct');
+        }
+
+        document.getElementById('score').textContent = 'Puntaje: ' + score;
+        document.getElementById('nextButton').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(currentQuestionIndex);
+            document.getElementById('nextButton').style.display = 'none';
+        } else {
+            document.querySelector('.quiz-container').innerHTML = `
+                <h2>¡Has terminado el cuestionario!</h2>
+                <div class="result">Tu puntaje final es ${score} de ${questions.length}.</div>
+                <div class="emoji">${score === questions.length ? '😊' : '😢'}</div>
+            `;
+        }
+    }
+
+    showQuestion(currentQuestionIndex);
+</script>
+
+</body>
+</html>
